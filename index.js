@@ -13,7 +13,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  var databaseHost = url.parse(process.env.DATABASE_URL).host;
+  var databaseHost = url.parse(process.env.DATABASE_URL).hostname;
   dns.lookup(request.headers.host, function onLookup(err, addresses, family) {
     response.render('pages/index', {
       "host": request.headers.host,
