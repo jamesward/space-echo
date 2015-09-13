@@ -54,6 +54,7 @@ var IPMapper = {
 						position: latlng
 					});
 					IPMapper.placeIPMarker(marker, latlng, contentString); //place Marker on Map
+                    IPMapper.map.setZoom(5);
 				} else {
 					IPMapper.logError('IP Address geocoding failed!');
 					$.error('IP Address geocoding failed!');
@@ -71,7 +72,7 @@ var IPMapper = {
 		});
 		IPMapper.latlngbound.extend(latlng);
 		IPMapper.map.setCenter(IPMapper.latlngbound.getCenter());
-		IPMapper.map.fitBounds(IPMapper.latlngbound);
+		//IPMapper.map.fitBounds(IPMapper.latlngbound);
 	},
 	getIPInfoWindowEvent: function(marker, contentString){ //open Marker Info Window
 		IPMapper.infowindow.close()
