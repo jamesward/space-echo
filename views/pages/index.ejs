@@ -6,8 +6,8 @@
     $(function() {
         try {
             IPMapper.initializeMap("map");
-            IPMapper.map.setZoom(5);
             IPMapper.addIPMarker("<%= router %>");
+            IPMapper.map.setZoom(5);
         } catch(e) {
             //handle error
         }
