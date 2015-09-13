@@ -13,7 +13,9 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   console.log(os.networkInterfaces()['eth1'][0]['address']);
-  console.log(dns.lookup(request.headers.host));
+  dns.lookup(request.headers.host, function onLookup(err, addresses, family) {
+    console.log('addresses:', addresses);
+  });
 
   response.render('pages/index');
 });
