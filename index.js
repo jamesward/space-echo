@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var os = require('os');
+var dns = require('dns');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -11,8 +12,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  console.log(os.networkInterfaces());
-  console.log(request.headers);
+  console.log(os.networkInterfaces()['eth1'][0]['address']);
+  console.log(dns.lookup(request.headers.host));
 
   response.render('pages/index');
 });
