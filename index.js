@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var os = require('os');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -10,6 +11,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
+  console.log(os.networkInterfaces());
   console.log(request.headers);
 
   response.render('pages/index');
