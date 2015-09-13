@@ -12,12 +12,13 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  console.log(os.networkInterfaces()['eth1'][0]['address']);
   dns.lookup(request.headers.host, function onLookup(err, addresses, family) {
-    console.log('addresses:', addresses);
+    response.render('pages/index', {
+      "router": addresses,
+      "internal": os.networkInterfaces()['eth1'][0]['address']
+    });
   });
 
-  response.render('pages/index');
 });
 
 app.listen(app.get('port'), function() {
