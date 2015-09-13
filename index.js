@@ -14,11 +14,15 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   var databaseHost = url.parse(process.env.DATABASE_URL).hostname;
+  var internal = "";
+  if (os.networkInterfaces()['eth1'] !== undefined) {
+    internal = os.networkInterfaces()['eth1'][0]['address']
+  }
   dns.lookup(request.headers.host, function onLookup(err, addresses, family) {
     response.render('pages/index', {
       "host": request.headers.host,
       "router": addresses,
-      "internal": os.networkInterfaces()['eth1'][0]['address'],
+      "internal": internal,
       "database": databaseHost
     });
   });
