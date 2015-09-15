@@ -14,13 +14,17 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   var databaseHost = url.parse(process.env.DATABASE_URL).hostname;
+
   var internal = "";
   if (os.networkInterfaces()['eth1'] !== undefined) {
     internal = os.networkInterfaces()['eth1'][0]['address']
   }
-  dns.lookup(request.headers.host, function onLookup(err, addresses, family) {
+
+  var host = request.headers.host;
+
+  dns.lookup(host, function onLookup(err, addresses, family) {
     response.render('pages/index', {
-      "host": request.headers.host,
+      "host": host,
       "router": addresses,
       "internal": internal,
       "database": databaseHost

@@ -8,7 +8,7 @@ var IPMapper = {
 	mapTypeId: google.maps.MapTypeId.ROADMAP,
 	latlngbound: null,
 	infowindow: null,
-	baseUrl: "http://freegeoip.net/json/",
+	baseUrl: "http://ip-api.com/json/",
 	initializeMap: function(mapId){
 		IPMapper.latlngbound = new google.maps.LatLngBounds();
 		var latlng = new google.maps.LatLng(0, 0);
@@ -40,9 +40,9 @@ var IPMapper = {
 		if($.trim(ip) != '' && ipRegex.test(ip)){ //validate IP Address format
 			var url = encodeURI(IPMapper.baseUrl + ip + "?callback=?"); //geocoding url
 			$.getJSON(url, function(data) { //get Geocoded JSONP data
-				if($.trim(data.latitude) != '' && data.latitude != '0' && !isNaN(data.latitude)){ //Geocoding successfull
-					var latitude = data.latitude;
-					var longitude = data.longitude;
+				if($.trim(data.lat) != '' && data.lat != '0' && !isNaN(data.lat)){ //Geocoding successfull
+					var latitude = data.lat;
+					var longitude = data.lon;
 					var contentString = "";
 					$.each(data, function(key, val) {
 						contentString += '<b>' + key.toUpperCase().replace("_", " ") + ':</b> ' + val + '<br />';
