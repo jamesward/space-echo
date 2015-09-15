@@ -3,6 +3,7 @@ var app = express();
 var os = require('os');
 var dns = require('dns');
 var url = require('url');
+var requestHttp = require('request');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -24,12 +25,18 @@ app.get('/', function(request, response) {
 
   dns.lookup(host, function onLookup(err, addresses, family) {
     var message = "Hello Private Spaces";
-    response.render('pages/index', {
-      "host": host,
-      "router": addresses,
-      "internal": internal,
-      "database": databaseHost,
-      "message": message
+    requestHttp('http://ip-api.com/json/'+addresses, function(err, resp, body) {
+      var data = JSON.parse(body);
+      if (data.countryCode == 'JP') {
+        message = "Kon'nichiwa from " + data.regionName;
+      }
+      response.render('pages/index', {
+        "host": host,
+        "router": addresses,
+        "internal": internal,
+        "database": databaseHost,
+        "message": message
+      });
     });
   });
 });
