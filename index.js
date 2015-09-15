@@ -23,11 +23,13 @@ app.get('/', function(request, response) {
   var host = request.headers.host;
 
   dns.lookup(host, function onLookup(err, addresses, family) {
+    var message = "Hello Private Spaces";
     response.render('pages/index', {
       "host": host,
       "router": addresses,
       "internal": internal,
-      "database": databaseHost
+      "database": databaseHost,
+      "message": message
     });
   });
 });
